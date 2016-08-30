@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1472598280 source:/home/foss/code/cs7a/1_triangle/triangle_measure/main.cpp
+	<iostream>
+	<cmath>
+	<stdio.h>
+
+1472594521 source:/home/foss/code/cs7a/1_triangle/triangle_measure/src/TriangleI.cpp
+	"TriangleI.h"
+
+1472594520 /home/foss/code/cs7a/1_triangle/triangle_measure/include/TriangleI.h
+
