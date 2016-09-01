@@ -1,5 +1,7 @@
-*.o
+.o
 bin/
 obj/
 *.depend
 *.cbp
+*.layout
+inclass_whatnot/

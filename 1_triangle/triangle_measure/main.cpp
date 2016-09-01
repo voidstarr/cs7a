@@ -72,11 +72,11 @@ int main()
     printf("The angles are A = %f, B = %f, C = %f\n", A, B, C);*/
 
     /// law of cosines
-    A = toDegrees(acos((pow(a, 2) - pow(b, 2) - pow(c, 2)) / (2 * b * c)));
+    //A = toDegrees(acos((pow(a, 2) - pow(b, 2) - pow(c, 2)) / (2 * b * c)));
     B = toDegrees(acos((pow(a, 2) - pow(b, 2) + pow(c, 2)) / (2 * a * c)));
     C = toDegrees(acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b)));
 
-    ///C = 180 - A - B;
+    A = 180 - C - B;
 
     printf("The lengths of the sides are a = %f, b = %f, c= %f\n", a, b, c);
     printf("The angles are A = %f, B = %f, C = %f", A, B, C);
