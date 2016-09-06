@@ -28,7 +28,7 @@ int main()
 {
     cout << "This program is designed to aid in the analysis of triangles." << endl;
     cout << "Would you like to specify the coordinates of a triangle (C),\nor the lengths of their sides(S) ? Enter ’C’ or ’S’:" << endl;
-    char response;
+    char response = '?';
     cin >> response;
     if (response == 'C' || response == 'c') {
         /// we're going to receive coordinates of points that make up the triangle.
@@ -79,7 +79,7 @@ int main()
     A = 180 - C - B;
 
     printf("The lengths of the sides are a = %f, b = %f, c= %f\n", a, b, c);
-    printf("The angles are A = %f, B = %f, C = %f", A, B, C);
+    printf("The angles are A = %f, B = %f, C = %f\n", A, B, C);
 
     return 0;
 }
