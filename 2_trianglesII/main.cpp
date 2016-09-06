@@ -1,6 +1,9 @@
 /*
     Patrick Jacobs
     Assignment 1 - TriangleI
+    TODO:
+      test all switch paths thoroughly
+      spit out coordinates
 */
 
 #include <iostream>
@@ -39,6 +42,7 @@ int main()
         << "\n4. Two angles and the included edge."
         << "\n5. Two angles and the side opposite the first angle."
         << "\n";
+
         cin >> choice;
         if(choice<1 || choice>5)
             cout << "\nThat’s not a good choice, try again: ";

@@ -1,6 +1,8 @@
 /*
     Patrick Jacobs
     Assignment 1 - TriangleI
+    TODO:
+        spit out coordinates for final output
 */
 
 #include <iostream>
@@ -22,6 +24,10 @@ float distanceBetween (float x1, float x2, float y1, float y2) /// distance form
 
 float toDegrees (float rad) { /// radian to degrees, yo!
     return rad * 180 / M_PI;
+}
+
+bool isTriangle(float x, float y, float z){
+    return x + y > z && y + z > x && z + x > y;
 }
 
 int main()
@@ -56,23 +62,18 @@ int main()
         cin >> b;
         cout << "Enter the length of side c:" << endl;
         cin >> c;
+
     } else {
         cout << "Try again! 'S' or 'C' next time..." << endl;
-        return 1;
+        return -1;
     }
 
-    /*a = 1;
-    b = sqrt(2);
-    c = 1;
 
-    A = acos((pow(a, 2) - pow(b, 2) - pow(c, 2)) / (2 * b * c));
-    B = acos((pow(a, 2) - pow(b, 2) + pow(c, 2)) / (2 * a * c));
-    C = acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b));
+    if (!isTriangle(a, b, c)) {
+        cout << "Those side lengths do not form a triangle.\n";
+        return -1;
+    }
 
-    printf("The angles are A = %f, B = %f, C = %f\n", A, B, C);*/
-
-    /// law of cosines
-    //A = toDegrees(acos((pow(a, 2) - pow(b, 2) - pow(c, 2)) / (2 * b * c)));
     B = toDegrees(acos((pow(a, 2) - pow(b, 2) + pow(c, 2)) / (2 * a * c)));
     C = toDegrees(acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b)));
 
@@ -84,7 +85,7 @@ int main()
     return 0;
 }
 
-/* OUTPUT:
+/************************:OUTPUT:********************************\
 This program is designed to aid in the analysis of triangles.
 Would you like to specify the coordinates of a triangle (C),
 or the lengths of their sides(S) ? Enter ’C’ or ’S’:
@@ -103,4 +104,4 @@ Enter the y coordinate of point C:
 0
 The lengths of the sides are a = 2.828427, b = 4.000000, c= 2.828427
 The angles are A = 45.000000, B = 90.000000, C = 45.000000
-*/
+\**********************************************************************/
