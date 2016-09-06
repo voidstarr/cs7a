@@ -78,8 +78,29 @@ int main()
 
     A = 180 - C - B;
 
-    printf("The lengths of the sides are a = %f, b = %f, c= %f\n", a, b, c);
+    printf("The lengths of the sides are a = %f, b = %f, c = %f\n", a, b, c);
     printf("The angles are A = %f, B = %f, C = %f\n", A, B, C);
 
     return 0;
 }
+
+/* OUTPUT:
+This program is designed to aid in the analysis of triangles.
+Would you like to specify the coordinates of a triangle (C),
+or the lengths of their sides(S) ? Enter ’C’ or ’S’:
+c
+Enter the x coordinate of point A:
+0
+Enter the y coordinate of point A:
+0
+Enter the x coordinate of point B:
+2
+Enter the y coordinate of point B:
+2
+Enter the x coordinate of point C:
+4
+Enter the y coordinate of point C:
+0
+The lengths of the sides are a = 2.828427, b = 4.000000, c= 2.828427
+The angles are A = 45.000000, B = 90.000000, C = 45.000000
+*/
