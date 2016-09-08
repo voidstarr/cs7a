@@ -1,6 +1,6 @@
 /*
     Patrick Jacobs
-    Assignment 1 - TriangleI
+    Assignment 2 - TriangleII
     TODO:
       test all switch paths thoroughly
       spit out coordinates
