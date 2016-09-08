@@ -1,8 +1,7 @@
 /*
     Patrick Jacobs
     Assignment 1 - TriangleI
-    TODO:
-        spit out coordinates for final output
+    "This program is designed to aid in the analysis of triangles."
 */
 
 #include <iostream>
@@ -78,6 +77,7 @@ int main() {
   }
 
   B = toDegrees(acos((pow(a, 2) - pow(b, 2) + pow(c, 2)) / (2 * a * c)));
+  /// who needs optimization when I've got performance!1!one!?
   C = toDegrees(acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b)));
 
   A = 180 - C - B;
@@ -88,8 +88,6 @@ int main() {
     Bx = c;
     By = 0;
     Cx = b * cos(toRadians(A));
-    cout << "b: " << b << " A: " << A << " toRad(A): " << toRadians(A)
-         << " sin(toRad(A): " << sin(toRadians(A)) << endl;
     Cy = b * sin(toRadians(A));
   }
 
