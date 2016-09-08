@@ -91,6 +91,9 @@ int main() {
     Cy = b * sin(toRadians(A));
   }
 
+
+  /// used printf for performance over using law of sins.
+  /// see https://stackoverflow.com/questions/2872543/printf-vs-cout-in-c
   printf("The values of coordinates are A(%f, %f) B(%f, %f) C(%f, %f)\n", Ax,
          Ay, Bx, By, Cx, Cy);
   printf("The lengths of the sides are a = %f, b = %f, c = %f\n", a, b, c);
