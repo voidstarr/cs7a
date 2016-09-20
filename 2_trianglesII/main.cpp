@@ -2,7 +2,6 @@
     Patrick Jacobs
     Assignment 2 - TriangleII
     TODO:
-      case 2 needs WORK
       test all switch paths thoroughly
       spit out coordinates
 */
@@ -30,6 +29,38 @@ float toDegrees(float rad) { /// radian to degrees, yo!
 
 float toRadians(float deg) { /// radian to degrees, yo!
   return deg * M_PI / 180;
+}
+
+bool isTriangle(float x, float y, float z) {
+  return x + y > z && y + z > x && z + x > y;
+}
+
+float biggestSide(float x, float y, float z) {
+  if (x > y) {
+    if (x > z) {
+      return x;
+    } else {
+      return z;
+    }
+  } else if (y > z) {
+    return y;
+  } else {
+    return z;
+  }
+}
+
+float smallestSide(float x, float y, float z) {
+  if (x < y) {
+    if (x < z) {
+      return x;
+    } else {
+      return z;
+    }
+  } else if (y < z) {
+    return y;
+  } else {
+    return z;
+  }
 }
 
 int main() {
@@ -76,7 +107,7 @@ int main() {
     A = 180 - C - B;
 
     break;
-  case 2: /// TODO: NEEDS WORK
+  case 2:
     cout << "Enter the length of side a:" << endl;
     cin >> a;
     cout << "Enter the length of side b:" << endl;
