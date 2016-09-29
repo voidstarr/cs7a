@@ -12,3 +12,5 @@ done/
 *.config
 *.creator
 *.creator.user
+.atom-beautify.*
+*.swp

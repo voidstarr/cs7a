@@ -17,8 +17,7 @@ int main() {
     uint64_t id;
     id = 508026;
     id *= id;
-    string idstr = numberToString(id);
-    //string idstr;
+    string idstr = numberToString(id); 
     cout << "\nHere's a string from the random number\n" << id << ": " << idstr << endl;
     /// Enter code here to compute the square of you student number .
 }
@@ -29,6 +28,7 @@ string numberToString(uint64_t x) {
     string idstr;
     while(x) {
         idstr = char(65+x%26)+idstr;
+        cout << "" << endl;
         x /= 26;
     }
     return idstr;
