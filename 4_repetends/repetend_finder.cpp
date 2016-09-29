@@ -15,23 +15,32 @@ The repetend is of length 16
 The digits of the repetend are
 4117647058823529 */
 
-# include <iostream >
+// research: http://mathforum.org/library/drmath/view/67018.html
+//           http://pari.math.u-bordeaux.fr/
+//           http://seanelvidge.com/2011/12/recurring-decimals-something-on-the-repetend/
+
+#include <iostream>
+#include <vector>
 using namespace std ;
 int main () {
     int dividend, divisor, quotient, remainder;
-    vector <short> decimalDigs;
-    cout << "\ nEnter the dividend and divisor of the rational number ";
+    vector<short> decimalDigs;
+    cout << "\nEnter the dividend and divisor of the rational number "
          << " whose repetend we seek :\n";
+    
     cin >> dividend >> divisor;
-    for (int i = 0; i < 200; ++ i ) {
-        decimalDigs . push_back ( dividend / divisor );
+    
+    for (int i = 0; i < 200; i++) {
+        decimalDigs.push_back ( dividend / divisor );
         remainder = dividend % divisor;
         dividend = 10 * remainder;
+
     }
     
-    cout << "\ nHere are the digits of the quotient computed : ";
-    for (int i = 0; i < 200; ++ i )
-        cout << decimalDigs [ i ];
+    cout << "\nHere are the digits of the quotient computed : ";
+    for (int i = 0; i < 200; i++)
+        cout << decimalDigs[i];
+    cout << endl;
     // Write code to detect the repetend and its length here
     return 0;
 }
