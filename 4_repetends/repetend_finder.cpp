@@ -13,14 +13,16 @@ Here are the digits of the quotient computed :
 4117647058823529411764705882352941176470588235
 The repetend is of length 16
 The digits of the repetend are
-4117647058823529 */
+4117647058823529 
+*/
 
 // research: http://mathforum.org/library/drmath/view/67018.html
 //           http://pari.math.u-bordeaux.fr/
 //           http://seanelvidge.com/2011/12/recurring-decimals-something-on-the-repetend/
+//           http://www.mathblog.dk/project-euler-26-find-the-value-of-d-1000-for-which-1d-contains-the-longest-recurring-cycle/
 
-#define QUOTIENT_LENGTH 200
-#define MAX_REPETEND_LENGTH 50
+#define QUOTIENT_LENGTH 20000
+#define MAX_REPETEND_LENGTH 20000
 
 #include <iostream>
 #include <vector>
@@ -76,10 +78,9 @@ int main () {
                 printQuotient(n);
                 return 0;
             }
-
         }
     }
-  
+
     cout << "No repetend found." << endl;
    
     return 0;
