@@ -37,30 +37,15 @@ void printQuotient(int);
 
 bool findRepetend();
 
+void calculateQuotient();
+
 int main() {
   cout << "\nEnter the dividend and divisor of the rational number "
        << " whose repetend we seek :\n";
 
   cin >> dividend >> divisor;
 
-  short skip = 0;
-  int div = divisor;
-  while ((div /= 10) > 10) {
-    cout << "div: " << div << endl;
-    skip++;
-  }
-
-  cout << "skip: " << skip << endl;
-
-  for (uint64_t i = 0; i < QUOTIENT_LENGTH; i++) {
-    remainder = dividend % divisor;
-    dividend = 10 * remainder;
-    if (skip <= 0) {
-      decimalDigs.push_back(dividend / divisor);
-    } else {
-      skip--;
-    }
-  }
+  calculateQuotient();
 
   cout << "\nHere are the digits of the quotient computed : ";
   printQuotient(divisor * 3);
@@ -76,12 +61,34 @@ void printQuotient(int digits) {
   cout << endl;
 }
 
+void calculateQuotient() {
+  short skip = 0;
+  int div = divisor;
+  while ((div /= 10) > 10) {
+    cout << "div: " << div << endl;
+    skip++;
+  }
+
+  cout << "skip: " << skip << endl;
+
+  for (uint64_t i = 0; i < divisor*4; i++) {
+    remainder = dividend % divisor;
+    dividend = 10 * remainder;
+    if (skip <= 0) {
+      decimalDigs.push_back(dividend / divisor);
+    } else {
+      skip--;
+    }
+  }
+}
+
 bool findRepetend() {
   // I find this for-loop solution the most elegant
-  for (int n = 1; n < MAX_REPETEND_LENGTH; n++) {
+  for (int n = 1; n < divisor; n++) {
     for (int i = 0; decimalDigs[i] == decimalDigs[i + n]; i++) {
-      //cout << "d[" << i << "]("<<decimalDigs[i]<<") == d[" << i << " + " << n << "](" << decimalDigs[i+n] << ")" << endl;
-      if (i > MAX_REPETEND_LENGTH/2) {
+      // cout << "d[" << i << "]("<<decimalDigs[i]<<") == d[" << i << " + " << n
+      // << "](" << decimalDigs[i+n] << ")" << endl;
+      if (i > divisor * 2) {
         cout << "Found repetend." << endl;
         printQuotient(n);
         return true;
