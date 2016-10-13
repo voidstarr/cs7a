@@ -21,9 +21,6 @@ The digits of the repetend are
 //           http://seanelvidge.com/2011/12/recurring-decimals-something-on-the-repetend/
 //           http://www.mathblog.dk/project-euler-26-find-the-value-of-d-1000-for-which-1d-contains-the-longest-recurring-cycle/
 
-#define QUOTIENT_LENGTH 20000
-#define MAX_REPETEND_LENGTH 20000
-
 #include <iostream>
 #include <vector>
 
@@ -31,7 +28,6 @@ using namespace std;
 
 uint64_t dividend, divisor, remainder;
 vector<short> decimalDigs;
-vector<short> repetend;
 
 void printQuotient(int);
 
@@ -46,32 +42,31 @@ int main() {
   cin >> dividend >> divisor;
 
   calculateQuotient();
-
   cout << "\nHere are the digits of the quotient computed : ";
-  printQuotient(divisor * 3);
-
+  printQuotient(-1);
   findRepetend();
-
   return 0;
 }
 
 void printQuotient(int digits) {
-  for (uint64_t i = 0; i < digits; i++)
+  if (digits < 0)
+    digits = decimalDigs.size();
+  for (uint64_t i = 0; i < decimalDigs.size(); i++)
     cout << decimalDigs[i];
   cout << endl;
 }
 
 void calculateQuotient() {
+  // let's skip all those unneeded values before the repetend
   short skip = 0;
   int div = divisor;
   while ((div /= 10) > 10) {
-    cout << "div: " << div << endl;
+    // cout << "div: " << div << endl;
     skip++;
   }
-
-  cout << "skip: " << skip << endl;
-
-  for (uint64_t i = 0; i < divisor*4; i++) {
+  // cout << "skip: " << skip << endl;
+  // build our vector of quotient digits
+  for (uint64_t i = 0; i < divisor * 4; i++) {
     remainder = dividend % divisor;
     dividend = 10 * remainder;
     if (skip <= 0) {
@@ -84,11 +79,14 @@ void calculateQuotient() {
 
 bool findRepetend() {
   // I find this for-loop solution the most elegant
+  // do a little dance
   for (int n = 1; n < divisor; n++) {
+    // make a little love
     for (int i = 0; decimalDigs[i] == decimalDigs[i + n]; i++) {
       // cout << "d[" << i << "]("<<decimalDigs[i]<<") == d[" << i << " + " << n
       // << "](" << decimalDigs[i+n] << ")" << endl;
       if (i > divisor * 2) {
+        // get down tonight
         cout << "Found repetend." << endl;
         printQuotient(n);
         return true;
