@@ -17,13 +17,13 @@ int main() {
 
  
 
-  for (int i = 10000; i > 1; i--) {
+  for (int i = 37; i > 1; i--) {
     if (sequenceLength >= i) {
       break;
     }
 
     vector<int> foundRemainders(i);
-    int value = 1;
+    int value = 144;
     int position = 0;
 
     while (foundRemainders[value] == 0 && value != 0) {
@@ -32,6 +32,9 @@ int main() {
       value %= i;
       position++;
     }
+    
+    cout << "val: " << value << endl;
+    cout << position << " - " << foundRemainders[value] << " > " << sequenceLength << endl;
 
     if (position - foundRemainders[value] > sequenceLength) {
         num = i;
