@@ -26,37 +26,46 @@ The digits of the repetend are
 
 using namespace std;
 
-uint64_t dividend, divisor, remainder;
-vector<short> decimalDigs;
+void printQuotient(int, vector<short>);
 
-void printQuotient(int);
+int findRepetend(int, vector<short>);
 
-bool findRepetend();
-
-void calculateQuotient();
+vector<short> calculateQuotient(int, int);
 
 int main() {
+  int divisor, dividend;
+
   cout << "\nEnter the dividend and divisor of the rational number "
        << " whose repetend we seek :\n";
 
   cin >> dividend >> divisor;
 
-  calculateQuotient();
-  cout << "\nHere are the digits of the quotient computed : ";
-  printQuotient(-1);
-  findRepetend();
+  vector<short> quotientDigits = calculateQuotient(divisor, dividend);
+  //cout << "\nHere are the digits of the quotient computed : ";
+  //printQuotient(-1, quotientDigits);
+  
+  int result = findRepetend(divisor, quotientDigits);
+  if (result > 0){
+    cout << "Repetend found:" << endl;
+    printQuotient(result, quotientDigits);
+  } else {
+    cout << "No repetend found." << endl;
+  }
+
   return 0;
 }
 
-void printQuotient(int digits) {
+void printQuotient(int digits, vector<short> v) {
   if (digits < 0)
-    digits = decimalDigs.size();
-  for (uint64_t i = 0; i < decimalDigs.size(); i++)
-    cout << decimalDigs[i];
+    digits = v.size();
+  for (uint64_t i = 0; i < digits; i++)
+    cout << v[i];
   cout << endl;
 }
 
-void calculateQuotient() {
+vector<short> calculateQuotient(int divisor, int dividend) {
+  vector<short> quotient;
+  int remainder = 0;
   // let's skip all those unneeded values before the repetend
   short skip = 0;
   int div = divisor;
@@ -70,29 +79,27 @@ void calculateQuotient() {
     remainder = dividend % divisor;
     dividend = 10 * remainder;
     if (skip <= 0) {
-      decimalDigs.push_back(dividend / divisor);
+      quotient.push_back(dividend / divisor);
     } else {
       skip--;
     }
   }
+  return quotient;
 }
 
-bool findRepetend() {
+int findRepetend(int divisor, vector<short> quotient) {
   // I find this for-loop solution the most elegant
   // do a little dance
   for (int n = 1; n < divisor; n++) {
     // make a little love
-    for (int i = 0; decimalDigs[i] == decimalDigs[i + n]; i++) {
-      // cout << "d[" << i << "]("<<decimalDigs[i]<<") == d[" << i << " + " << n
-      // << "](" << decimalDigs[i+n] << ")" << endl;
+    for (int i = 0; quotient[i] == quotient[i + n]; i++) {
+       //cout << "d[" << i << "]("<< quotient[i]<<") == d[" << i << " + " << n
+       //<< "](" << quotient[i+n] << ")" << endl;
       if (i > divisor * 2) {
         // get down tonight
-        cout << "Found repetend." << endl;
-        printQuotient(n);
-        return true;
+        return n;
       }
     }
   }
-  cout << "No repetend found." << endl;
-  return false;
+  return -1;
 }
