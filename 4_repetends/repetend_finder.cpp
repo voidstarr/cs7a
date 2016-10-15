@@ -17,12 +17,14 @@ The digits of the repetend are
 */
 
 // research: http://mathforum.org/library/drmath/view/67018.html
-//           http://pari.math.u-bordeaux.fr/
-//           http://seanelvidge.com/2011/12/recurring-decimals-something-on-the-repetend/
-//           http://www.mathblog.dk/project-euler-26-find-the-value-of-d-1000-for-which-1d-contains-the-longest-recurring-cycle/
+//    "    : http://pari.math.u-bordeaux.fr/
+//    "    : http://seanelvidge.com/2011/12/recurring-decimals-something-on-the-repetend/
+//    "    : http://www.mathblog.dk/project-euler-26-find-the-value-of-d-1000-for-which-1d-contains-the-longest-recurring-cycle/
+//    "    : http://stackoverflow.com/questions/10349857/how-to-handle-wrong-data-type-input
 
 #include <iostream>
 #include <vector>
+#include <limits>
 
 using namespace std;
 
@@ -32,27 +34,55 @@ int findRepetend(int, vector<short>);
 
 vector<short> calculateQuotient(int, int);
 
+void intervalCase();
+
+void potentialRepCase();
+
+void enterWait();
+
 int main() {
-  int divisor, dividend;
+  int response = -1;
+  do {
+    cout << endl << endl
+         << "==============================_______================================" << endl 
+         << "||                   Choose an option:                             ||" << endl
+         << "|| 1) Find largest repetend in a given interval: [1,n]             ||" << endl
+         << "|| 2) Find the potential repetend for a given dividend and divisor ||" << endl
+         << "|| 3) Quit                    _______                              ||" << endl
+         << "==============================       ================================" << endl
+         << ">> ";
 
-  cout << "\nEnter the dividend and divisor of the rational number "
-       << " whose repetend we seek :\n";
+    if (!(cin >> response)) {
+      cin.clear(); //clear bad input flag
+      response = -1;
+    }
 
-  cin >> dividend >> divisor;
-
-  vector<short> quotientDigits = calculateQuotient(divisor, dividend);
-  //cout << "\nHere are the digits of the quotient computed : ";
-  //printQuotient(-1, quotientDigits);
-  
-  int result = findRepetend(divisor, quotientDigits);
-  if (result > 0){
-    cout << "Repetend found:" << endl;
-    printQuotient(result, quotientDigits);
-  } else {
-    cout << "No repetend found." << endl;
-  }
-
+    switch (response) {
+      case 1:
+        intervalCase();
+        break; 
+      case 2:
+        potentialRepCase();
+        break;
+      case 3:
+        return 0;
+        break;
+      default:
+        cout << "Invalid response." << endl;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        continue;
+        break;
+        
+    }
+    enterWait();
+  } while (response != 3);
   return 0;
+}
+
+void enterWait() {
+  cin.ignore();
+  cout << "Press the enter key to continue.";
+  cin.ignore();
 }
 
 void printQuotient(int digits, vector<short> v) {
@@ -101,5 +131,66 @@ int findRepetend(int divisor, vector<short> quotient) {
       }
     }
   }
+  //we couldn't dance, love or get down
   return -1;
+}
+
+void potentialRepCase() {
+  cout << endl << "Enter the dividend and divisor of the rational number"
+       << " whose repetend we seek:" << endl;
+
+  int dividend{0}, divisor{0};
+
+  cin >> dividend >> divisor;
+
+
+  vector<short> quotientDigits = calculateQuotient(divisor, dividend);
+
+  //cout << "\nHere are the digits of the quotient computed : ";
+  //printQuotient(-1, quotientDigits);
+
+  int result = findRepetend(divisor, quotientDigits);
+
+  cout <<  endl;
+
+  if (result > 0){
+    cout << "Repetend found:" << endl;
+    printQuotient(result, quotientDigits);
+  } else {
+    cout << "No repetend found." << endl;
+  }
+}
+
+void intervalCase() {
+  //cout << "not done yet" << endl;
+
+  int largestLength{0};
+  int largestDividend{0};
+  vector<short> largestQuotient;
+
+  cout << endl << "Enter the integer n for the interval [1,n] in which we will find the divisor" << endl
+       <<"with the largest repetend when divided into 1." << endl;
+
+  int upperBound{0};
+
+  cin >> upperBound;
+
+  for (int i = upperBound; i > 1; i--){
+    vector<short> quotientDigits = calculateQuotient(i, 1);
+
+    int result = findRepetend(i, quotientDigits);
+
+    if (result > 0 && result > largestLength) {
+     largestLength = result;
+     largestDividend = i;
+     largestQuotient = quotientDigits;
+     // cout << "Repetend found:" << i << " " << result << endl;
+     // printQuotient(result, quotientDigits);
+    }
+  }
+
+  cout << "The dividend of 1/n with longest repetend: " << largestDividend << " with length: " << largestLength << endl
+       << endl;
+  printQuotient(largestLength, largestQuotient); 
+
 }
