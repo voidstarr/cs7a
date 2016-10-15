@@ -1,9 +1,8 @@
-
-// Code to search for a repetend in the decimal form of a rational number .
-// precondition : a quotient and a divisor , both positive integers .
-// postcondition : an array containing the sequence of decimal digits in
-// the quotient , the length of the repetend and a sequence of repetend digits .
 /*
+Code to search for a repetend in the decimal form of a rational number .
+precondition : a quotient and a divisor , both positive integers .
+postcondition : an array containing the sequence of decimal digits in
+the quotient , the length of the repetend and a sequence of repetend digits .
 Enter the dividend and divisor of the rational number whose repetend we seek :
 1 17
 Here are the digits of the quotient computed :
