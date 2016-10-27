@@ -37,7 +37,7 @@ class Board {
         void shuffle();
         void display();
 		bool won(); //returns true if the game board is as below, otherwise false
-		Board(); //	constructor
+        Board(int s=4); //	constructor
 };
 
 int main() {
@@ -50,8 +50,11 @@ int main() {
     }
 }
 
-Board::Board() {
+Board::Board(int s) : size(s) {
     // TODO: Initialize board with blank tiles in the lower right corner:
+    int sqrSize = (size*size) - 1;
+    for (int i = 0; i < sqrSize; i++)
+        tiles.push_back(i+1);
 }
 
 void Board::getMove() {
@@ -60,7 +63,9 @@ void Board::getMove() {
 
 void Board::display() {
    for (int i = 0; i < tiles.size(); i++) {
-       cout << i;
+       if (tiles[i] == 16) cout << " ";
+       else cout << tiles[i];
+
        if(i%size==0) cout << endl;
        else cout << " ";
    } 
