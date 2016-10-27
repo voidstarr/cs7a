@@ -26,43 +26,57 @@
 //  9 10 11 12
 // 13 14 15   
 
-
+using namespace std;
 
 class Board {
     public:
     	int size = 4; // The dimension of the square board
     	vector<int> tiles;
-		void getMove(tiles);  // prompts the use to enter u, d, l, r 
-							  // (or some other scheme)  	
-    	void shuffle(tiles);
-		void display(tiles);
+		
+        void getMove();
+        void shuffle();
+        void display();
 		bool won(); //returns true if the game board is as below, otherwise false
 		Board(); //	constructor
 };
 
-void shuffle(&vector<?>)
-
-int main() 
-{
-// Initialize board with blank tiles in the lower right corner:
-    // create a Board, b
+int main() {
+    srand(time(0));
+    Board b;
     //game loop
-	while(!b.won())
-	{	
-		// construct a board with size*size tiles
-		getMove(board, size); // function calls – size is const int,
-		display(board, size); // board is the address in memory of the
-	}                          // first element of the array, board[]
-}
-
-//define display()
-
-void shuffle(&vector<?> v) {
-    for (int i = v.size(); i > 0; i--){
-        
+	while(!b.won()) {	
+		b.getMove();
+        b.display(); 
     }
 }
 
-// define won()
+Board::Board() {
+    // TODO: Initialize board with blank tiles in the lower right corner:
+}
 
-// define getMove()
+void Board::getMove() {
+    // TODO: prompts the use to enter u, d, l, r or some other scheme
+}
+
+void Board::display() {
+   for (int i = 0; i < tiles.size(); i++) {
+       cout << i;
+       if(i%size==0) cout << endl;
+       else cout << " ";
+   } 
+}
+
+void Board::shuffle() {
+    int tsize = tiles.size();
+    int tmp = 0;
+    for (int i = tsize; i > 0; i--){
+       int j = rand() % tsize;
+       tmp = tiles[i];
+       tiles[i] = tiles[j];
+       tiles[j] = tmp;
+    }
+}
+
+bool Board::won() {
+    return false;
+}
