@@ -31,13 +31,15 @@ using namespace std;
 
 class Board {
     public:
-    	int holeAt = 0;
+    	bool forfeit = false;
+        int holeAt = 0;
         int size = 4; // The dimension of the square board
     	int sqrSize = size*size;
-        vector<int> tiles; //= {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+        vector<int> tiles; 
+        vector<int> winState;
 		
         void getMove();
-        void moveHole(int holeShift);
+        void moveHole(int holeShift, bool horizShift);
         void shuffle();
         void display();
 		bool won(); //returns true if the game board is as below, otherwise false
@@ -47,26 +49,52 @@ class Board {
 int main() {
     srand(time(0));
     Board b;
-    //game loop
+    
     b.shuffle();
     b.display();
-	while(!b.won()) {	
+	
+    time_t startTime = time(0);
+
+    while(!b.won()) {	
 		b.getMove();
         b.display(); 
     }
+
+
+    if (b.forfeit){
+        cout << "You forfeit. ";
+    } else {
+        cout << "You win. ";
+    }
+
+    double duration = difftime(time(0), startTime);
+
+    cout << endl << "Game time: " << duration << " seconds." << endl;
+
 }
 
 Board::Board(int s) : size(s) {
     // DONE: Initialize board with blank tiles in the lower right corner:
-    for (int i = 1; i <= sqrSize; i++)
+    for (int i = 1; i <= sqrSize; i++){
         tiles.push_back(i);
+        winState.push_back(i);
+    }
     
 }
 
-void Board::moveHole(int holeShift) {
-    tiles[holeAt] = tiles[holeShift];
-    tiles[holeShift] = 16;
-    holeAt = holeShift;
+void Board::moveHole(int holeShift, bool horizShift) {
+    if (horizShift) {
+        int row = holeAt / size;
+        if (holeShift >= size*row && holeShift < size*(row+1)) {
+            tiles[holeAt] = tiles[holeShift];
+            tiles[holeShift] = sqrSize;
+            holeAt = holeShift;
+        }
+    } else if (holeShift >= 0 && holeShift < sqrSize) {
+        tiles[holeAt] = tiles[holeShift];
+        tiles[holeShift] = sqrSize;
+        holeAt = holeShift;
+    }
 }
 
 void Board::getMove() {
@@ -74,38 +102,31 @@ void Board::getMove() {
     // DONE: find some way to do this cleaner?
     // this mess could be quite a bit prettier if we used a 2d array
     // instead of vector<int>
+    cout << "Enter u(up), d(down), l(left), r(right) or f(forfeit)" << endl 
+         << ">> ";
     char nMove;
     cin >> nMove;
-    int holeShift = -1;
-    bool horizShift = false;
     switch (nMove) {
         case 'u':
         case 'U':
-            holeShift = holeAt - 4;
+            moveHole(holeAt - size, false);
             break;
         case 'd':
         case 'D':
-            holeShift = holeAt + 4;
+            moveHole(holeAt + size, false);
             break;
         case 'l':
         case 'L':
-            horizShift = true;
-            holeShift = holeAt - 1;
+            moveHole(holeAt - 1, true);
             break;
         case 'r':
         case 'R':
-            horizShift = true;
-            holeShift = holeAt + 1;
+            moveHole(holeAt + 1, true);
             break;
-    }
-
-    if (horizShift) {
-        int row = holeAt / size;
-        if (holeShift >= size*row && holeShift < size*(row+1)) {
-            moveHole(holeShift);
-        }
-    } else if (holeShift >= 0 && holeShift < sqrSize) {
-        moveHole(holeShift);
+        case 'f':
+        case 'F':
+            forfeit = true;
+            break;
     }
     cout << endl;
 }
@@ -130,7 +151,6 @@ void Board::display() {
 void Board::shuffle() {
     int tsize = tiles.size();
     int tmp = 0;
-    //cout << tsize << endl;
     for (int i = 0; i < tsize; i++) {
        unsigned int j = (rand() % tsize) ;
        tmp = tiles[i];
@@ -148,5 +168,5 @@ void Board::shuffle() {
 
 bool Board::won() {
     // TODO: write win condition
-    return false;
+    return forfeit ||  tiles == winState;
 }
