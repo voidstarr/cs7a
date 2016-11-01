@@ -33,7 +33,8 @@ class Board {
     public:
     	int holeAt = 0;
         int size = 4; // The dimension of the square board
-    	vector<int> tiles; //= {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+    	int sqrSize = size*size;
+        vector<int> tiles; //= {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 		
         void getMove();
         void moveHole(int holeShift);
@@ -57,7 +58,6 @@ int main() {
 
 Board::Board(int s) : size(s) {
     // DONE: Initialize board with blank tiles in the lower right corner:
-    int sqrSize = (size*size);
     for (int i = 1; i <= sqrSize; i++)
         tiles.push_back(i);
     
@@ -70,7 +70,8 @@ void Board::moveHole(int holeShift) {
 }
 
 void Board::getMove() {
-    // TODO: prompts the use to enter u, d, l, r or some other scheme
+    // DONE: prompts the use to enter u, d, l, r or some other scheme
+    // DONE: find some way to do this cleaner?
     // this mess could be quite a bit prettier if we used a 2d array
     // instead of vector<int>
     char nMove;
@@ -100,33 +101,10 @@ void Board::getMove() {
 
     if (horizShift) {
         int row = holeAt / size;
-        switch (row) {
-            case 0:
-                {
-                    if (holeShift >= 0 && holeShift < size)
-                        moveHole(holeShift);
-                }
-                break;
-            case 1:
-                {
-                    if (holeShift >= size && holeShift < size*2)
-                        moveHole(holeShift);
-                }
-                break;
-            case 2:
-                {
-                    if (holeShift >= size*2 && holeShift < size*3)
-                        moveHole(holeShift);
-                }
-                break;
-            case 3:
-                {
-                    if (holeShift >= size*3 && holeShift < size*4)
-                        moveHole(holeShift);
-                }
-                break;
+        if (holeShift >= size*row && holeShift < size*(row+1)) {
+            moveHole(holeShift);
         }
-    } else if (holeShift >= 0 && holeShift < 16) {
+    } else if (holeShift >= 0 && holeShift < sqrSize) {
         moveHole(holeShift);
     }
     cout << endl;
@@ -138,7 +116,7 @@ void Board::display() {
         << "|  ";*/
    int tsize = tiles.size();
    for (int i = 0; i < tsize; i++) {
-       if (tiles[i] == 16) cout << "x ";
+       if (tiles[i] == sqrSize) cout << "  ";
        else cout << tiles[i];
        
        if((i+1)%size==0) cout << endl;
@@ -161,7 +139,7 @@ void Board::shuffle() {
 //        cout << " itiles[" << i << "] = " << tiles[j] << " jtiles[" << j << "] = " << tiles[i] << endl;
     }
     for (int i = 0; i < tsize; i++) {
-        if (tiles[i] == 16) {
+        if (tiles[i] == sqrSize) {
             holeAt = i;
             break;
         }
