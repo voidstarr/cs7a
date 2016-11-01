@@ -2,6 +2,7 @@
 #include <vector>
 #include <random>
 #include <ctime>
+#include <sstream>
 // Prototype descriptions (enter a prototype that fits.) 
 
 // display() shows it on the console.  For example, if 
@@ -44,14 +45,18 @@ int main() {
     srand(time(0));
     Board b;
     //game loop
-	while(!b.won()) {	
+	/*while(!b.won()) {	
 		b.getMove();
         b.display(); 
-    }
+    }*/
+    b.display();
+    cout << endl;
+    b.shuffle();
+    b.display();
 }
 
 Board::Board(int s) : size(s) {
-    // TODO: Initialize board with blank tiles in the lower right corner:
+    // DONE: Initialize board with blank tiles in the lower right corner:
     int sqrSize = (size*size) - 1;
     for (int i = 0; i < sqrSize; i++)
         tiles.push_back(i+1);
@@ -62,26 +67,40 @@ void Board::getMove() {
 }
 
 void Board::display() {
+    //TODO: pretty display() function
+   cout << "-----------------" << endl 
+        << "|  "; 
    for (int i = 0; i < tiles.size(); i++) {
-       if (tiles[i] == 16) cout << " ";
+       if (tiles[i] == 16) cout << "  ";
        else cout << tiles[i];
-
-       if(i%size==0) cout << endl;
-       else cout << " ";
-   } 
+       
+       if((i+1)%size==0) cout << "  |" << endl << "|  ";
+       else if ((tiles[i]) < 10) cout << "  ";
+       else if ((tiles[i]) >= 10) cout << " ";
+       //else cout << " ";
+   }
+   cout << "  |" << endl 
+        << "-----------------" << endl;
 }
 
 void Board::shuffle() {
     int tsize = tiles.size();
+    cout << endl << tsize << endl;
     int tmp = 0;
-    for (int i = tsize; i > 0; i--){
+    for (int i = 0; i < tsize; i++){
        int j = rand() % tsize;
+       //cout << j << endl;
        tmp = tiles[i];
        tiles[i] = tiles[j];
        tiles[j] = tmp;
+        cout << "i:j" << i << ":" << j << " "<< tiles[i] << " " << tiles[j] << endl;
+       /*cout << endl;
+       display();
+       cout << endl;*/
     }
 }
 
 bool Board::won() {
+    // TODO: write win condition
     return false;
 }
