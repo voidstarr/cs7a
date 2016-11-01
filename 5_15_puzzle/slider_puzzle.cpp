@@ -167,6 +167,6 @@ void Board::shuffle() {
 }
 
 bool Board::won() {
-    // TODO: write win condition
+    // DONE: write win condition
     return forfeit ||  tiles == winState;
 }
