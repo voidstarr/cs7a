@@ -31,10 +31,12 @@ using namespace std;
 
 class Board {
     public:
-    	int size = 4; // The dimension of the square board
-    	vector<int> tiles;
+    	int holeAt = 0;
+        int size = 4; // The dimension of the square board
+    	vector<int> tiles; //= {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 		
         void getMove();
+        void moveHole(int holeShift);
         void shuffle();
         void display();
 		bool won(); //returns true if the game board is as below, otherwise false
@@ -45,58 +47,124 @@ int main() {
     srand(time(0));
     Board b;
     //game loop
-	/*while(!b.won()) {	
-		b.getMove();
-        b.display(); 
-    }*/
-    b.display();
-    cout << endl;
     b.shuffle();
     b.display();
+	while(!b.won()) {	
+		b.getMove();
+        b.display(); 
+    }
 }
 
 Board::Board(int s) : size(s) {
     // DONE: Initialize board with blank tiles in the lower right corner:
-    int sqrSize = (size*size) - 1;
-    for (int i = 0; i < sqrSize; i++)
-        tiles.push_back(i+1);
+    int sqrSize = (size*size);
+    for (int i = 1; i <= sqrSize; i++)
+        tiles.push_back(i);
+    
+}
+
+void Board::moveHole(int holeShift) {
+    tiles[holeAt] = tiles[holeShift];
+    tiles[holeShift] = 16;
+    holeAt = holeShift;
 }
 
 void Board::getMove() {
     // TODO: prompts the use to enter u, d, l, r or some other scheme
+    // this mess could be quite a bit prettier if we used a 2d array
+    // instead of vector<int>
+    char nMove;
+    cin >> nMove;
+    int holeShift = -1;
+    bool horizShift = false;
+    switch (nMove) {
+        case 'u':
+        case 'U':
+            holeShift = holeAt - 4;
+            break;
+        case 'd':
+        case 'D':
+            holeShift = holeAt + 4;
+            break;
+        case 'l':
+        case 'L':
+            horizShift = true;
+            holeShift = holeAt - 1;
+            break;
+        case 'r':
+        case 'R':
+            horizShift = true;
+            holeShift = holeAt + 1;
+            break;
+    }
+
+    if (horizShift) {
+        int row = holeAt / size;
+        switch (row) {
+            case 0:
+                {
+                    if (holeShift >= 0 && holeShift < size)
+                        moveHole(holeShift);
+                }
+                break;
+            case 1:
+                {
+                    if (holeShift >= size && holeShift < size*2)
+                        moveHole(holeShift);
+                }
+                break;
+            case 2:
+                {
+                    if (holeShift >= size*2 && holeShift < size*3)
+                        moveHole(holeShift);
+                }
+                break;
+            case 3:
+                {
+                    if (holeShift >= size*3 && holeShift < size*4)
+                        moveHole(holeShift);
+                }
+                break;
+        }
+    } else if (holeShift >= 0 && holeShift < 16) {
+        moveHole(holeShift);
+    }
+    cout << endl;
 }
 
 void Board::display() {
     //TODO: pretty display() function
-   cout << "-----------------" << endl 
-        << "|  "; 
-   for (int i = 0; i < tiles.size(); i++) {
-       if (tiles[i] == 16) cout << "  ";
+   /*cout << "-----------------" << endl 
+        << "|  ";*/
+   int tsize = tiles.size();
+   for (int i = 0; i < tsize; i++) {
+       if (tiles[i] == 16) cout << "x ";
        else cout << tiles[i];
        
-       if((i+1)%size==0) cout << "  |" << endl << "|  ";
+       if((i+1)%size==0) cout << endl;
        else if ((tiles[i]) < 10) cout << "  ";
        else if ((tiles[i]) >= 10) cout << " ";
        //else cout << " ";
    }
-   cout << "  |" << endl 
-        << "-----------------" << endl;
+   cout << endl; 
 }
 
 void Board::shuffle() {
     int tsize = tiles.size();
-    cout << endl << tsize << endl;
     int tmp = 0;
-    for (int i = 0; i < tsize; i++){
-       int j = rand() % tsize;
-       //cout << j << endl;
+    //cout << tsize << endl;
+    for (int i = 0; i < tsize; i++) {
+       unsigned int j = (rand() % tsize) ;
        tmp = tiles[i];
        tiles[i] = tiles[j];
        tiles[j] = tmp;
-        cout << "i:j" << i << ":" << j << " "<< tiles[i] << " " << tiles[j] << endl;
-       /*cout << endl;
-       display();
-       cout << endl;*/
+//        cout << " itiles[" << i << "] = " << tiles[j] << " jtiles[" << j << "] = " << tiles[i] << endl;
+    }
+    for (int i = 0; i < tsize; i++) {
+        if (tiles[i] == 16) {
+            holeAt = i;
+            break;
+        }
     }
 }
 
