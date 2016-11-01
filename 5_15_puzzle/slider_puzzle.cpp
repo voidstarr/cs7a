@@ -1,30 +1,15 @@
+/*
+ * Patrick Jacobs
+ * Assignment 5 - 14-15 game 
+ * (able to be any size square)
+ * pass Board an integer at time of instantiation
+ * (second line of main() ) to adjust side length
+ * */
+
 #include <iostream>
 #include <vector>
 #include <random>
 #include <ctime>
-// Prototype descriptions (enter a prototype that fits.) 
-
-// display() shows it on the console.  For example, if 
-// board = {1, 2, 3, 4, 5, 16, 7, 8, 9, 10, 11, 12, 13, 14, 15, 6}
-// then display shows
-//  1  2  3  4  
-//  5     7  8
-//  9 10 11 12
-// 13 14 15  6 
-
-//shuffle() Use the \href{http://en.wikipedia.org/wiki/Fisher–Yates_shuffle}{Fisher-Yates} algorithm to shuffle.
-//After shuffling the board, a call to the function display will produce a 
-//shuffled board like this:
-/* 14  5  4 11
-   12  9  6  7
-      13  8 10
-   15  1  3  2 */
-
-// 
-//  1  2  3  4  
-//  5  6  7  8
-//  9 10 11 12
-// 13 14 15   
 
 using namespace std;
 
