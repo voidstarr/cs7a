@@ -15,7 +15,7 @@ using namespace std;
 
 class Board {
     public:
-    	bool forfeit = false;
+    	bool forfeited = false;
         int holeAt = 0;
         int size = 4; // The dimension of the square board
     	int sqrSize = size*size;
@@ -26,6 +26,8 @@ class Board {
         void moveHole(int holeShift, bool horizShift);
         void shuffle();
         void display();
+        void setForfeited(bool f);
+        bool hasForfeited();
 		bool won(); //returns true if the game board is as below, otherwise false
         Board(int s=4); //	constructor
 };
@@ -45,7 +47,7 @@ int main() {
     }
 
 
-    if (b.forfeit){
+    if (b.hasForfeited()){
         cout << "You forfeit. ";
     } else {
         cout << "You win. ";
@@ -64,6 +66,14 @@ Board::Board(int s) : size(s) {
         winState.push_back(i);
     }
     
+}
+
+bool Board::hasForfeited(){
+    return forfeited;
+}
+
+void Board::setForfeited(bool f){
+    forfeited = f;
 }
 
 void Board::moveHole(int holeShift, bool horizShift) {
@@ -109,7 +119,7 @@ void Board::getMove() {
             break;
         case 'f':
         case 'F':
-            forfeit = true;
+            setForfeited(true);
             break;
     }
     cout << endl;
@@ -152,5 +162,5 @@ void Board::shuffle() {
 
 bool Board::won() {
     // DONE: write win condition
-    return forfeit ||  tiles == winState;
+    return hasForfeited() ||  tiles == winState;
 }
