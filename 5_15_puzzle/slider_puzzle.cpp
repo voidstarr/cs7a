@@ -21,9 +21,10 @@ class Board {
     	int sqrSize = size*size;
         vector<int> tiles; 
         vector<int> winState;
-		
+        vector<char> moves;
+
         void getMove();
-        void moveHole(int holeShift, bool horizShift);
+        void moveHole(int holeShift, bool horizShift, char move);
         void shuffle();
         void display();
         void setForfeited(bool f);
@@ -56,6 +57,16 @@ int main() {
     double duration = difftime(time(0), startTime);
 
     cout << endl << "Game time: " << duration << " seconds." << endl;
+    
+    int movesTaken = b.moves.size();
+    
+    cout << "Moves taken: " << movesTaken << endl;
+    for (int i = 0; i < movesTaken; i++) {
+        cout <<  b.moves[i];
+        if (i < movesTaken - 1)
+            cout << ",";
+    }
+    cout << endl;
 
 }
 
@@ -76,18 +87,20 @@ void Board::setForfeited(bool f){
     forfeited = f;
 }
 
-void Board::moveHole(int holeShift, bool horizShift) {
+void Board::moveHole(int holeShift, bool horizShift, char move) {
     if (horizShift) {
         int row = holeAt / size;
         if (holeShift >= size*row && holeShift < size*(row+1)) {
             tiles[holeAt] = tiles[holeShift];
             tiles[holeShift] = sqrSize;
             holeAt = holeShift;
+            moves.push_back(move);
         }
     } else if (holeShift >= 0 && holeShift < sqrSize) {
         tiles[holeAt] = tiles[holeShift];
         tiles[holeShift] = sqrSize;
         holeAt = holeShift;
+        moves.push_back(move);
     }
 }
 
@@ -103,19 +116,19 @@ void Board::getMove() {
     switch (nMove) {
         case 'u':
         case 'U':
-            moveHole(holeAt - size, false);
+            moveHole(holeAt - size, false, nMove);
             break;
         case 'd':
         case 'D':
-            moveHole(holeAt + size, false);
+            moveHole(holeAt + size, false, nMove);
             break;
         case 'l':
         case 'L':
-            moveHole(holeAt - 1, true);
+            moveHole(holeAt - 1, true, nMove);
             break;
         case 'r':
         case 'R':
-            moveHole(holeAt + 1, true);
+            moveHole(holeAt + 1, true, nMove);
             break;
         case 'f':
         case 'F':
