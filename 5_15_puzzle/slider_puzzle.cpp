@@ -139,15 +139,13 @@ void Board::getMove() {
 }
 
 void Board::display() {
-    //TODO: pretty display() function
-   /*cout << "-----------------" << endl 
-        << "|  ";*/
    int tsize = tiles.size();
+   cout << "\t\t";
    for (int i = 0; i < tsize; i++) {
        if (tiles[i] == sqrSize) cout << "  ";
        else cout << tiles[i];
        
-       if((i+1)%size==0) cout << endl;
+       if((i+1)%size==0) cout << endl << "\t\t";
        else if ((tiles[i]) < 10) cout << "  ";
        else if ((tiles[i]) >= 10) cout << " ";
        //else cout << " ";
@@ -157,19 +155,14 @@ void Board::display() {
 
 void Board::shuffle() {
     int tsize = tiles.size();
-    int tmp = 0;
     for (int i = 0; i < tsize; i++) {
-       unsigned int j = (rand() % tsize) ;
-       tmp = tiles[i];
-       tiles[i] = tiles[j];
-       tiles[j] = tmp;
-//        cout << " itiles[" << i << "] = " << tiles[j] << " jtiles[" << j << "] = " << tiles[i] << endl;
-    }
-    for (int i = 0; i < tsize; i++) {
-        if (tiles[i] == sqrSize) {
+        unsigned int j = (rand() % tsize) ;
+        swap(tiles[i], tiles[j]);
+        if(tiles[i] == sqrSize)
             holeAt = i;
-            break;
-        }
+        else if (tiles[j] == sqrSize)
+            holeAt = j;
+        //    cout << " itiles[" << i << "] = " << tiles[j] << " jtiles[" << j << "] = " << tiles[i] << endl;
     }
 }
 
