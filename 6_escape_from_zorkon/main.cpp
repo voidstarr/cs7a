@@ -25,7 +25,6 @@ int main() {
     ///...
     cout << "\nastronaut is at " << astronaut.currentLoc;
     ++steps;
-    // cin.get();
   }
   /// write code here
 }

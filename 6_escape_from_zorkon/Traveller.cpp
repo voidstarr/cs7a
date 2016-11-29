@@ -5,10 +5,12 @@ Traveller::Traveller(Point p, double s, char k)
 
 void Traveller::updateLoc(Point p) { /// p is the location of the other
                                      /// Traveller
-  if (kind == 'a') { /// update astronaut
-                     /// write code here
-  } else {           /// update zorkoid
-                     /// write code here
+  if (kind == 'a') {
+                    
+  } else if (kind == 'z'){           
+   
+  } else {
+    std::cout << "Houston, we don't know what we're tracking!" << std::endl;
   }
 }
 
