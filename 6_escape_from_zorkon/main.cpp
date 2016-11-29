@@ -8,9 +8,9 @@ const double fasterFactor = 4.0;
 
 int main() {
   int steps{0};     // count how many times you've moved
-  Point east(1, 0); /// starting point of zorkoid
+  Point east(1, 0, 'r'); /// starting point of zorkoid
   cout << "\neast = " << east;
-  Point origin(0, 0);                     /// starting point of astronaut
+  Point origin(0, 0, 'r');                     /// starting point of astronaut
   Traveller astronaut(origin, step, 'a'); /// construct astronaut
   cout << "\nastronaut starts at " << astronaut.currentLoc;
   Traveller zorkoid(east, fasterFactor * step, 'z'); /// construct zorkoid

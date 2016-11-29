@@ -1,5 +1,4 @@
-#ifndef H_POINT
-#define H_POINT
+#pragma once
 
 #include <iostream>
 #include <cmath>
@@ -12,7 +11,7 @@ public:
   double y;
   double r; /// polar coordinates
   double theta;
-  Point(double x, double y);      // constructor
+  Point(double x, double y, char s);      // constructor
   Point operator+(const Point &); // overload addition operator
   Point operator-(const Point &); // overload subtraction operator
   Point operator*(const double); // overload multiplication operator where right
@@ -20,8 +19,9 @@ public:
   Point operator/(const double); // overload multiplication operator where right
                                  // operand is double
   Point operator+=(const Point &);
-  double setTheta(double, double);
+  double setTheta();
+  void setPolar();
+  void setRectangular();
 };
 
 std::ostream &operator<<(std::ostream &, const Point &p);
-#endif

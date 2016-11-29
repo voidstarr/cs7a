@@ -1,5 +1,4 @@
-#ifndef H_TRAVELLER
-#define H_TRAVELLER
+#pragma once
 
 #include "Point.h"
 #include <cmath>
@@ -26,4 +25,3 @@ public:
   Traveller(Point p, double s, char kind); // constructor
 };
 
-#endif

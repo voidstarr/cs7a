@@ -1,39 +1,67 @@
 #include "Point.h"
 
-double Point::setTheta(double xin, double yin) {
-  if (xin == 0 && yin == 0)
+double Point::setTheta() {
+  if (x == 0 && y == 0)
     return 0; /// check for special cases first
-  if (xin == 0 && yin > 0)
+  if (x == 0 && y > 0)
     return Pi / 2;
-  else if (xin == 0 && yin < 0)
+  else if (x == 0 && y < 0)
     return -Pi / 2;
   else
     return x > 0 ? atan(y / x) : Pi + atan(y / x);
 }
 
-Point::Point(double xin, double yin) : x(xin), y(yin) {
-  r = sqrt(x * x + y * y);
-  theta = setTheta(x, y);
+//    polar:    a:r, b:theta
+// rectangular: a:x, b:y
+//
+Point::Point(double a, double b, char sys) {
+  if (sys == 'r') {
+    x = a;
+    y = b;
+    setPolar();
+  } else if (sys == 'p') {
+    r = a;
+    theta = b;
+    setRectangular();
+  } else {
+      std::cout << "Houston, we have a major problem!" << std::endl;
+  }
 }
 
-Point Point::operator+(const Point &p) { return Point(x + p.x, y + p.y); }
+void Point::setRectangular() {
+    x = r * cos(theta);
+    y = r * sin(theta);
+}
+
+void Point::setPolar() {
+    r = sqrt(x * x + y * y);
+    theta = setTheta();
+}
+
+Point Point::operator+(const Point &p) { 
+    return Point(x + p.x, y + p.y, 'r'); 
+}
 
 Point Point::operator-(const Point &p) {
-  /// write code here
+    return Point(x - p.x, y - p.x, 'r');
 }
 
+
 Point Point::operator*(const double m) {
-  /// write code here
+    return Point(x * m, x * y, 'r');
 }
 
 Point Point::operator/(const double m) {
   if (m == 0)
     return *this;
-  /// write code here
+  return Point(x / m, y / m, 'r');
 }
 
 Point Point::operator+=(const Point &p) {
-  /// write code here
+    x += p.x;
+    y += p.y;
+    setPolar();
+    return *this;
 }
 
 /// define overloaded insertion operator for Point
