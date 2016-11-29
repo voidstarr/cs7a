@@ -1,37 +1,21 @@
 #include "Traveller.h"
 
-Point::operator-(const Point& p){
-    double xtmp = x - p.x;
-    double ytmp = y - p.y;
+Traveller::Traveller(Point p, double s, char k)
+    : currentLoc(p), speed(s), kind(k) {}
 
-    double rtmp = sqrt((xtmp*xtmp) + (ytmp*ytmp));
-    double ttmp;
-    if (xtmp == 0 && ytmp > 0)
-        ttmp = Pi/2;
-    else if (xtmp == 0 && ytmp < 0)
-        ttmp = -1*Pi/2;
-    else
-        ttmp = (xtmp > 0) ? atan(xtmp/ytmp) : Pi+atan(xtmp/ytmp);
-
-
-    
-    return Point(rtmp,ttmp);
+void Traveller::updateLoc(Point p) { /// p is the location of the other
+                                     /// Traveller
+  if (kind == 'a') { /// update astronaut
+                     /// write code here
+  } else {           /// update zorkoid
+                     /// write code here
+  }
 }
 
-Traveller::Traveller(Point p, double s, double b)
-    : currentLoc(p), speed(s), bearing(b) {}
-
-void Traveller::updateLoc(Point p) { currentLoc = p; }
-
-bool Traveller::onShore() {
-  return currentLoc.x * currentLoc.x + currentLoc.y * currentLoc.y >=
-         lakeRadius * lakeRadius;
+void Traveller::printPath(std::ofstream &of) {
+  for (Point p : path){
+  /// write code here
+  }
 }
 
-void updateLoc() {}
-
-void updateBearing(double b) { bearing = d; }
-
-void updatePath() {}
-
-void printPath() {}
+bool Traveller::onShore() { return currentLoc.r >= lakeRadius; }
