@@ -5,13 +5,15 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <random>
+#include <ctime>
 
-
-const double step = 0.01; // determines speed
+//const double step = 0.01; // determines speed
 const double lakeRadius{1};
 
 class Traveller {
 public:
+  const double Pi = 3.14159265358979;
   char kind;         //'a' for "astronaut" and 'z' for "zorkoid"
   Point currentLoc;  // Where's Waldo?
   double speed;      // Generally a small number, but zorkoid goes faster
@@ -24,4 +26,3 @@ public:
   bool onShore();                          /// is r >= lakeRadius?
   Traveller(Point p, double s, char kind); // constructor
 };
-

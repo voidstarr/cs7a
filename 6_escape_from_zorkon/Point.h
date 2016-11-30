@@ -19,9 +19,12 @@ public:
   Point operator/(const double); // overload multiplication operator where right
                                  // operand is double
   Point operator+=(const Point &);
+  bool operator==(const Point &);
+
   double setTheta();
   void setPolar();
   void setRectangular();
+  double distFrom(const Point&);
 };
 
 std::ostream &operator<<(std::ostream &, const Point &p);

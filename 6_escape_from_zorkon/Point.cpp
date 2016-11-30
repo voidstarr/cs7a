@@ -3,10 +3,8 @@
 double Point::setTheta() {
   if (x == 0 && y == 0)
     return 0; /// check for special cases first
-  if (x == 0 && y > 0)
-    return Pi / 2;
-  else if (x == 0 && y < 0)
-    return -Pi / 2;
+  if (x == 0)
+    return y > 0 ? Pi/2 : -Pi/2;
   else
     return x > 0 ? atan(y / x) : Pi + atan(y / x);
 }
@@ -38,6 +36,10 @@ void Point::setPolar() {
     theta = setTheta();
 }
 
+double Point::distFrom(const Point &p) {
+    return sqrt(pow(x - p.x,2) + pow(y - p.y,2));
+}
+
 Point Point::operator+(const Point &p) { 
     return Point(x + p.x, y + p.y, 'r'); 
 }
@@ -48,7 +50,7 @@ Point Point::operator-(const Point &p) {
 
 
 Point Point::operator*(const double m) {
-    return Point(x * m, x * y, 'r');
+    return Point(x * m, x * m, 'r');
 }
 
 Point Point::operator/(const double m) {
@@ -62,6 +64,10 @@ Point Point::operator+=(const Point &p) {
     y += p.y;
     setPolar();
     return *this;
+}
+
+bool Point::operator==(const Point &p) {
+    return x == p.x && y == p.y;
 }
 
 /// define overloaded insertion operator for Point
