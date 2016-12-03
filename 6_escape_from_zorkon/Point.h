@@ -3,10 +3,10 @@
 #include <iostream>
 #include <cmath>
 
+const double Pi = 3.14159265358979;
+
 class Point {
 public:
-  const double Pi = 3.14159265358979;
-    
   double x; // rectangular coordinates
   double y;
   double r; /// polar coordinates

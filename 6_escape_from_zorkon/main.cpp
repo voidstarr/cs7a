@@ -18,15 +18,17 @@ int main() {
   ofstream ofa("aPath.txt"), ofz("zPath.txt");
   while (!astronaut.onShore() && steps < maxSteps) {
     zorkoid.updateLoc(astronaut.currentLoc);
-    cout << "zorkoid is at " << zorkoid.currentLoc << endl;
+    cout << "zorkoid is at " << zorkoid.currentLoc << " polar: (" << zorkoid.currentLoc.r << ", " << zorkoid.currentLoc.theta << ")" << endl;
     
     astronaut.updateLoc(zorkoid.currentLoc);
-    cout << "astronaut is at " << astronaut.currentLoc << endl;
+    cout << "astronaut is at " << astronaut.currentLoc << " polar: (" << astronaut.currentLoc.r << ", " << astronaut.currentLoc.theta << ")" << endl;
     ++steps;
     if (astronaut.currentLoc == zorkoid.currentLoc){
         cout << "astronaut was eaten, oh well." << endl;
         break;
     }
   }
-  /// write code here
+  astronaut.printPath(ofa);
+  zorkoid.printPath(ofz);
+
 }
