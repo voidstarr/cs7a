@@ -1,9 +1,9 @@
 #include "Point.h"
 
-double Point::setTheta() {
-  std::cout << "Point::setTheta(): "
-            << "R(" << x << ", " << y << ") "
-            << "atan(y/x): " << atan(y/x) << std::endl;
+double Point::thetaFromXY() {
+  //std::cout << "Point::thetaFromXY(): " << std::endl
+  //          << "R(" << x << ", " << y << ") " << std::endl
+  //          << "atan(y/x): " << atan(y/x) << std::endl;
   if (x == 0 && y == 0)
     return 0; /// check for special cases first
   if (x == 0)
@@ -29,17 +29,24 @@ Point::Point(double a, double b, char sys) {
   }
 }
 
+void Point::setTheta(double nTheta) {
+    if (nTheta == 0)
+        theta = nTheta;
+    theta = (nTheta > 0) ? nTheta : nTheta + 2*Pi;
+    setRectangular();
+}
+
 void Point::setRectangular() {
-    //std::cout << "Point::setRectangular(): ";
+    std::cout << "Point::setRectangular(): ";
     x = r * cos(theta);
-    //std::cout << "x:" << x << " r:" << r << " cos(theta):" << cos(theta);
+    std::cout << "x:" << x << " r:" << r << " cos(theta):" << cos(theta);
     y = r * sin(theta);
-    //std::cout << " y:" << y << " r:" << r << " sin(theta):" << sin(theta) << std::endl;
+    std::cout << " y:" << y << " r:" << r << " sin(theta):" << sin(theta) << std::endl;
 }
 
 void Point::setPolar() {
     r = sqrt(x * x + y * y);
-    theta = setTheta();
+    setTheta(thetaFromXY());
 }
 
 double Point::distFrom(const Point &p) {

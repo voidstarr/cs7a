@@ -21,7 +21,9 @@ public:
   Point operator+=(const Point &);
   bool operator==(const Point &);
 
-  double setTheta();
+
+  void setTheta(double);
+  double thetaFromXY();
   void setPolar();
   void setRectangular();
   double distFrom(const Point&);
