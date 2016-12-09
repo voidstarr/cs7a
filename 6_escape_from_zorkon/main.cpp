@@ -5,7 +5,7 @@ using namespace std;
 
 const int maxSteps = 2000;
 const long double fasterFactor = 10.0;
-const long double step = 0.005;
+const long double step = 0.01;
 
 int main() {
   cout << "\t\t=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl 
