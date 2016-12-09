@@ -22,7 +22,8 @@ void Traveller::updateLoc(Point p) { /// p is the location of the other
     bool zxPos = currentLoc.x > 0;
     bool cw = (!aboveLine && !zxPos && !zyPos) ||
               (!aboveLine && zxPos && !zyPos) ||
-              (aboveLine && !zxPos && zyPos) || (aboveLine && zxPos && zyPos);
+              (aboveLine && !zxPos && zyPos) || 
+              (aboveLine && zxPos && zyPos);
 
     if (cw) {
       currentLoc.setTheta(zTheta - speed);
