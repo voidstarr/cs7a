@@ -10,25 +10,24 @@ void Traveller::updateLoc(Point p) { /// p is the location of the other
   if (kind == 'a') {
     Point heading = ((currentLoc - p) / (currentLoc.distFrom(p))) *
                     speed; // div by dist between
-    //std::cout << "aHeading : " << heading << std::endl
-    //           << "currentLoc.distFrom(p):" << currentLoc.distFrom(p) << std::endl
-    //           << "(currentLoc - p): " << (currentLoc - p) << std::endl;
+    std::cout << "unit vector : " << heading / speed << std::endl
+               << "(|A - Z|):" << currentLoc.distFrom(p) << std::endl
+               << "(A - Z): " << (currentLoc - p) << std::endl;
     currentLoc += heading;
   } else if (kind == 'z') {
-    double zTheta = currentLoc.theta;
-    double aTheta = p.theta;
-
-    std::cout << "z-theta: " << zTheta << " a-theta: " << aTheta << " z move: ";
-    if (zTheta < aTheta && aTheta < zTheta + Pi) {
+    long double zTheta = currentLoc.theta;
+    long double aTheta = p.theta;
+    long double lineSlope = p.x * tan(zTheta);
+    //std::cout << "z-theta: " << zTheta << " a-theta: " << aTheta << " z move: ";
+    if (p.y > p.x * lineSlope) {
       currentLoc.setTheta(zTheta + speed);
-      std::cout << "cc-wise" << std::endl;
-    } else if (zTheta + Pi < aTheta && aTheta < zTheta + 2*Pi) {
+      //std::cout << "cc-wise" << std::endl;
+    } else if (p.y < p.x * lineSlope) {
       currentLoc.setTheta(zTheta - speed);
-      std::cout << "c-wise" << std::endl;
-    } else if (aTheta == zTheta ||
-               aTheta == zTheta + Pi) {
+      //std::cout << "c-wise" << std::endl;
+    } else if (p.y == p.x * lineSlope) {
       currentLoc.setTheta(zTheta + speed);
-      std::cout << "cc-wise" << std::endl;
+      //std::cout << "cc-wise =" << std::endl;
     } else {
       std::cout << "No zorkoid move..." << std::endl;
     }

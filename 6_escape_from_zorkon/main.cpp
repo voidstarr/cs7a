@@ -4,10 +4,13 @@
 using namespace std;
 
 const int maxSteps = 2000;
-const double fasterFactor = 4.0;
-const double step = 0.01;
+const long double fasterFactor = 10.0;
+const long double step = 0.005;
 
 int main() {
+  cout << "\t\t=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl 
+       << "\t\t          START" << endl
+       << "\t\t=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
   int steps{0};     // count how many times you've moved
   Point east(1, 0, 'r'); /// starting point of zorkoid
   cout << "east = " << east << endl;
@@ -27,7 +30,9 @@ int main() {
         cout << "astronaut was eaten, oh well." << endl;
         break;
     }
+
   }
+  cout << "steps taken: " << steps << endl;
   astronaut.printPath(ofa);
   zorkoid.printPath(ofz);
 
